@@ -16,7 +16,8 @@ function die {
 function convert_to_new_ipynb {
     #Help convert a notebook to new v4 format
 
-    [[ -f $1.ipynb ]] || return $(die "Can't find $1.ipynb")
-    jupyter nbconvert --to notebook $1.ipynb --output $1-v4.ipynb || return $(die "Failed converting $1.ipynb")
-    mv $1-v4.ipynb $1.ipynb
+    [[ -f $1 ]] || return $(die "Can't find $1")
+    local xbf=${1%.*}
+    jupyter nbconvert --to notebook ${xbf}.ipynb --output ${xbf}-v4.ipynb || return $(die "Failed converting ${xbf}.ipynb")
+    mv ${xbf}-v4.ipynb ${xbf}.ipynb
 }
